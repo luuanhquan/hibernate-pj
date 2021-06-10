@@ -35,7 +35,16 @@ public class Subject {
     @OneToMany(mappedBy = "subject", fetch = FetchType.EAGER)
     private List<TeachingSchedule> teachingSchedules;
 
-    public void inputInfo() {
+    @Override
+    public String toString() {
+        return getIdString() +
+                "    \t" + name +
+                "    \t\t" + theoryLessonCost +
+                "    \t\t" + (totalLesson - theoryLessonCost) +
+                "    \t" + theoryLessonCost;
+    }
+
+    public Subject inputInfo() {
         System.out.println("-------------------------");
         System.out.print("Input subject name: ");
         this.setName(new Scanner(System.in).nextLine());
@@ -45,5 +54,14 @@ public class Subject {
         this.setTotalTheoryLesson(new Scanner(System.in).nextInt());
         System.out.print("Input theo lesson's cost: ");
         this.setTheoryLessonCost(new Scanner(System.in).nextDouble());
+        return this;
+    }
+
+    public String getIdString() {
+        if (id < 10)
+            return "00" + id;
+        else if (id < 100)
+            return "0" + id;
+        else return String.valueOf(id);
     }
 }

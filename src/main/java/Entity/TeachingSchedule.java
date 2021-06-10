@@ -1,11 +1,10 @@
 package Entity;
 
-import Impl.SubjectDAOImpl;
-import Impl.TeacherDAOImpl;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import run.MainRun;
 
 import javax.persistence.*;
 import java.util.Scanner;
@@ -34,23 +33,48 @@ public class TeachingSchedule {
     private double totalLesson;
 
     public double getTotalLesson() {
-        return this.subject.getTheoryLessonCost() * this.totalClass * (0.7 * this.subject.getTotalLesson() + 0.3 * this.subject.getTotalTheoryLesson());
+        return this.totalClass * this.getSubject().getTotalLesson();
     }
 
-    public void inputInfo() {
+    @Override
+    public String toString() {
+        return teacher.getName() +
+                "\t" + subject.getName() +
+                "\t" + totalClass;
+    }
+
+    public TeachingSchedule inputInfo() {
         System.out.println("-------------------------");
+
         System.out.print("Input teacher id: ");
-        this.setTeacher(new TeacherDAOImpl().findById(new Scanner(System.in).nextInt()));
+        String t_id = new Scanner(System.in).nextLine();
+        Teacher teacher = MainRun.teacherList.stream().filter(item -> t_id.equals(item.getIdString())).findFirst().get();
+        this.setTeacher(teacher);
+
         System.out.print("Input subject id: ");
-        this.setSubject(new SubjectDAOImpl().findById(new Scanner(System.in).nextInt()));
+        String s_id = new Scanner(System.in).nextLine();
+        Subject subject = MainRun.subjectList.stream().filter(item -> s_id.equals(item.getIdString())).findFirst().get();
+        this.setSubject(subject);
+
+        System.out.print("Input number of class (1~3): ");
         int choice = 0;
-        while (choice < 1 || choice > 3) {
-            System.out.print("Input number of class (1~3): ");
+        while (true) {
             choice = new Scanner(System.in).nextInt();
             if (choice < 1 || choice > 3) {
                 System.out.println("Number of class must between 1 and 3!");
+                System.out.println("Your choice: ");
+                continue;
             }
-            this.setTotalClass(new Scanner(System.in).nextInt());
+            break;
         }
+
+        if (teacher.getTeachingSchedules().stream()
+                .mapToInt(tc -> tc.getTotalClass()).sum() > 200) {
+            System.out.println("Total lesson cannot over 200");
+            return null;
+        };
+
+        this.setTotalClass(choice);
+        return this;
     }
 }

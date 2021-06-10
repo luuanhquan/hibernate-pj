@@ -55,7 +55,7 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher", fetch=FetchType.EAGER)
     private List<TeachingSchedule> teachingSchedules;
 
-    public void inputInfo() throws IOException {
+    public Teacher inputInfo() throws IOException {
         System.out.println("-------------------------");
         System.out.print("Input teacher name: ");
         this.setName(new Scanner(System.in).nextLine());
@@ -86,17 +86,35 @@ public class Teacher {
             switch (choice) {
                 case 1:
                     this.setTeacherLevel(Level.PROFESSOR);
-                    return;
+                    break;
                 case 2:
                     this.setTeacherLevel(Level.ASSOCIATE_PROFESSOR);
-                    return;
+                    break;
                 case 3:
                     this.setTeacherLevel(Level.LECTURER);
-                    return;
+                    break;
                 case 4:
                     this.setTeacherLevel(Level.MASTER);
-                    return;
+                    break;
             }
+            return this;
         }
+    }
+
+    @Override
+    public String toString() {
+        return getIdString() +
+                "\t\t" + name +
+                "\t\t" + teacherLevel +
+                "\t" + phone +
+                "\t\t" + address;
+    }
+
+    public String getIdString() {
+        if (id < 10)
+            return "00" + id;
+        else if (id < 100)
+            return "0" + id;
+        else return String.valueOf(id);
     }
 }

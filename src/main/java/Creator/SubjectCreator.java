@@ -12,22 +12,21 @@ import java.util.List;
 
 public class SubjectCreator {
     private static SubjectDAOImpl subjectDAO = new SubjectDAOImpl();
-    private List<Subject> listSubjectTemp = new ArrayList<>();
+    private static List<Subject> listSubjectTemp= new ArrayList<>();
 
     public void createSubject() {
+        listSubjectTemp.clear();
         while (true) {
             try {
-                Subject subject = new Subject();
-                subject.inputInfo();
-                listSubjectTemp.add(subject);
-                if (new MenuUtil().Continue()) continue;
-                else break;
+                listSubjectTemp.add(new Subject().inputInfo());
+                if (!MenuUtil.Continue()) break;
             } catch (Exception e) {
                 System.out.println("Wrong data input!");
             }
         }
         if (!CollectionUtil.isEmpty(listSubjectTemp)) {
             subjectDAO.addNew(listSubjectTemp);
+            System.out.println(listSubjectTemp);
             MainRun.subjectList.addAll(listSubjectTemp);
         }
     }

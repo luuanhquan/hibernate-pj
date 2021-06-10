@@ -4,13 +4,13 @@ import Creator.SubjectCreator;
 import Creator.TeacherCreator;
 import Creator.TeachingScheduleCreator;
 import Creator.TeachingScheduleSortingAndCalculating;
+import DAO.DAO;
 import Entity.Subject;
 import Entity.Teacher;
 import Entity.TeachingSchedule;
 import Impl.SubjectDAOImpl;
 import Impl.TeacherDAOImpl;
 import Impl.TeachingScheduleDAOImpl;
-//import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,33 +19,33 @@ import java.util.Scanner;
 
 public class MainRun {
 
-//    static Logger logger = Logger.getLogger(MainRun.class);
-    static final Scanner scanner= new Scanner(System.in);
+    //    static Logger logger = Logger.getLogger(MainRun.class);
+    static final Scanner scanner = new Scanner(System.in);
 
     static public List<Subject> subjectList = new ArrayList<>();
     static public List<Teacher> teacherList = new ArrayList<>();
     static public List<TeachingSchedule> teachingScheduleList = new ArrayList<>();
 
-    static private SubjectDAOImpl subjectDAO= new SubjectDAOImpl();
-    static private TeacherDAOImpl teacherDAO= new TeacherDAOImpl();
-    static private TeachingScheduleDAOImpl teachingScheduleDAO= new TeachingScheduleDAOImpl();
+    static private DAO<Subject> subjectDAO = new SubjectDAOImpl();
+    static private DAO<Teacher> teacherDAO = new TeacherDAOImpl();
+    static private DAO<TeachingSchedule> teachingScheduleDAO = new TeachingScheduleDAOImpl();
 
-    static private SubjectCreator subjectCreator= new SubjectCreator();
-    static private TeacherCreator teacherCreator= new TeacherCreator();
-    static private TeachingScheduleCreator teachingScheduleCreator= new TeachingScheduleCreator();
-    static private TeachingScheduleSortingAndCalculating teachingScheduleSortingAndCalculating= new TeachingScheduleSortingAndCalculating();
+    static private SubjectCreator subjectCreator = new SubjectCreator();
+    static private TeacherCreator teacherCreator = new TeacherCreator();
+    static private TeachingScheduleCreator teachingScheduleCreator = new TeachingScheduleCreator();
+    static private TeachingScheduleSortingAndCalculating teachingScheduleSortingAndCalculating = new TeachingScheduleSortingAndCalculating();
 
     public static void main(String[] args) {
         init();
-        while (true){
+        while (true) {
             showMenu();
         }
     }
 
-    public static void init(){
-        subjectList= subjectDAO.getAll();
-        teacherList= teacherDAO.getAll();
-        teachingScheduleList= teachingScheduleDAO.getAll();
+    public static void init() {
+        subjectList = subjectDAO.getAll();
+        teacherList = teacherDAO.getAll();
+        teachingScheduleList = teachingScheduleDAO.getAll();
     }
 
     private static void showMenu() {
@@ -64,10 +64,10 @@ public class MainRun {
         System.out.print("Chọn chức năng: ");
         switch (scanner.nextLine()) {
             case "1":
-                printSubject();
+                subjectCreator.createSubject();
                 break;
             case "2":
-                subjectList.forEach(System.out::println);
+                printSubject();
                 break;
             case "3":
                 teacherCreator.createTeacher();
@@ -98,8 +98,7 @@ public class MainRun {
         }
     }
 
-    private static void printSchedule() {
-        teachingScheduleList.forEach(System.out::println);
+    private static void printSchedule() { teachingScheduleList.forEach(System.out::println);
     }
 
     private static void printTeacher() {
@@ -107,6 +106,6 @@ public class MainRun {
     }
 
     private static void printSubject() {
-        subjectCreator.createSubject();
+        subjectList.forEach(System.out::println);
     }
 }
