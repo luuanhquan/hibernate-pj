@@ -11,22 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeachingScheduleCreator {
-    private static TeachingScheduleDAOImpl teachingScheduleDAO = new TeachingScheduleDAOImpl();
-    private static List<TeachingSchedule> listTeachingScheduleTemp= new ArrayList<>();
+    private static final TeachingScheduleDAOImpl teachingScheduleDAO = new TeachingScheduleDAOImpl();
+    private static final List<TeachingSchedule> listTeachingScheduleTemp = new ArrayList<>();
 
     public void createTeachingSchedule() {
         listTeachingScheduleTemp.clear();
-        while (true) {
+        do {
             try {
-                listTeachingScheduleTemp.add(new TeachingSchedule().inputInfo());
-                if (!MenuUtil.Continue()) break;
-            } catch (Exception e) {
-                System.out.println("Wrong data input!");
+                CollectionUtil.addIfNotNull(listTeachingScheduleTemp, new TeachingSchedule().inputInfo());
+            }catch (Exception e){
+                System.out.println("Wrong input");
             }
-        }
+        } while (MenuUtil.Continue());
+
         if (!CollectionUtil.isEmpty(listTeachingScheduleTemp)) {
             teachingScheduleDAO.addNew(listTeachingScheduleTemp);
-            System.out.println(listTeachingScheduleTemp);
             MainRun.teachingScheduleList.addAll(listTeachingScheduleTemp);
         }
     }

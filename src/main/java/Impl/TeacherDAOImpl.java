@@ -4,7 +4,6 @@ import DAO.DAO;
 import Entity.Teacher;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.util.List;

@@ -11,6 +11,8 @@ import java.util.List;
 public interface DAO<T>{
      List<T> getAll();
 
+    T findById(int id);
+
     default boolean addNew(List<T> list){
         Transaction tx= null;
         Session session;
@@ -26,8 +28,6 @@ public interface DAO<T>{
             return false;
         }
     }
-
-    T findById(int id);
 
     default boolean update(List<T> list){
         Transaction tx = null;

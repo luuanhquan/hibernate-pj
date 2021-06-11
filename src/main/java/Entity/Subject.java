@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -39,12 +40,12 @@ public class Subject {
     public String toString() {
         return getIdString() +
                 "    \t" + name +
-                "    \t\t" + theoryLessonCost +
-                "    \t\t" + (totalLesson - theoryLessonCost) +
+                "    \t\t" + totalTheoryLesson +
+                "    \t\t" + (totalLesson - totalTheoryLesson) +
                 "    \t" + theoryLessonCost;
     }
 
-    public Subject inputInfo() {
+    public Subject inputInfo() throws IOException {
         System.out.println("-------------------------");
         System.out.print("Input subject name: ");
         this.setName(new Scanner(System.in).nextLine());

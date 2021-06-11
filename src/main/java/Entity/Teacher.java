@@ -49,13 +49,13 @@ public class Teacher {
             case ASSOCIATE_PROFESSOR: teacherLevel=1;
             case LECTURER: teacherLevel=2;
             case MASTER: teacherLevel=3;
-        };
+        }
     }
 
     @OneToMany(mappedBy = "teacher", fetch=FetchType.EAGER)
     private List<TeachingSchedule> teachingSchedules;
 
-    public Teacher inputInfo() throws IOException {
+    public Teacher inputInfo() throws IOException{
         System.out.println("-------------------------");
         System.out.print("Input teacher name: ");
         this.setName(new Scanner(System.in).nextLine());

@@ -26,14 +26,14 @@ public class MainRun {
     static public List<Teacher> teacherList = new ArrayList<>();
     static public List<TeachingSchedule> teachingScheduleList = new ArrayList<>();
 
-    static private DAO<Subject> subjectDAO = new SubjectDAOImpl();
-    static private DAO<Teacher> teacherDAO = new TeacherDAOImpl();
-    static private DAO<TeachingSchedule> teachingScheduleDAO = new TeachingScheduleDAOImpl();
+    static private final DAO<Subject> subjectDAO = new SubjectDAOImpl();
+    static private final DAO<Teacher> teacherDAO = new TeacherDAOImpl();
+    static private final DAO<TeachingSchedule> teachingScheduleDAO = new TeachingScheduleDAOImpl();
 
-    static private SubjectCreator subjectCreator = new SubjectCreator();
-    static private TeacherCreator teacherCreator = new TeacherCreator();
-    static private TeachingScheduleCreator teachingScheduleCreator = new TeachingScheduleCreator();
-    static private TeachingScheduleSortingAndCalculating teachingScheduleSortingAndCalculating = new TeachingScheduleSortingAndCalculating();
+    static private final SubjectCreator subjectCreator = new SubjectCreator();
+    static private final TeacherCreator teacherCreator = new TeacherCreator();
+    static private final TeachingScheduleCreator teachingScheduleCreator = new TeachingScheduleCreator();
+    static private final TeachingScheduleSortingAndCalculating teachingScheduleSortingAndCalculating = new TeachingScheduleSortingAndCalculating();
 
     public static void main(String[] args) {
         init();
@@ -98,14 +98,21 @@ public class MainRun {
         }
     }
 
-    private static void printSchedule() { teachingScheduleList.forEach(System.out::println);
+    private static void printSchedule() {
+        System.out.println("\t SCHEDULE");
+        System.out.println("Teacher\tSubject\tTotal Class");
+        teachingScheduleList.forEach(System.out::println);
     }
 
     private static void printTeacher() {
+        System.out.println("\t TEACHER LIST");
+        System.out.println("ID\t\tNAME\tLEVEL\tPHONE\t\t\tADDRESS");
         teacherList.forEach(System.out::println);
     }
 
     private static void printSubject() {
+        System.out.println("\t SUBJECT LIST");
+        System.out.println("ID\t\tNAME\t\tTHEORY\tPRACTICAL\tCOST");
         subjectList.forEach(System.out::println);
     }
 }

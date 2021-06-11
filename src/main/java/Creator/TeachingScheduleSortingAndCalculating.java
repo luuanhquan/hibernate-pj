@@ -17,7 +17,6 @@ public class TeachingScheduleSortingAndCalculating {
         teachingScheduleByName.stream()
                 .sorted((o1, o2) -> o1.getTeacher().getName().compareToIgnoreCase(o2.getTeacher().getName()))
                 .forEach(System.out::println);
-        ;
     }
 
     public void sortByLessonNumber() {

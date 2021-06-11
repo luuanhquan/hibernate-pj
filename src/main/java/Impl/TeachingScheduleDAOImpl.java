@@ -4,7 +4,6 @@ import DAO.DAO;
 import Entity.TeachingSchedule;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.util.List;
@@ -19,7 +18,6 @@ public class TeachingScheduleDAOImpl implements DAO<TeachingSchedule> {
             return session.createQuery("from Teaching_Schedule").list();
         } catch (HibernateException e) {
             e.printStackTrace();
-//            logger.error(e);
         }
         return null;
     }

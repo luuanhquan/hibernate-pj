@@ -4,15 +4,12 @@ import DAO.DAO;
 import Entity.Subject;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import utils.HibernateUtil;
 
 import java.util.List;
 
 
 public class SubjectDAOImpl implements DAO<Subject> {
-    Transaction tx = null;
-    Session session = HibernateUtil.getSessionFactory().openSession();
 
 
     @Override

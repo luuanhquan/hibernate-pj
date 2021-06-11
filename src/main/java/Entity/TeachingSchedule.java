@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 import run.MainRun;
 
 import javax.persistence.*;
+import java.io.IOException;
 import java.util.Scanner;
 
 @Entity(name = "Teaching_Schedule")
@@ -43,7 +44,7 @@ public class TeachingSchedule {
                 "\t" + totalClass;
     }
 
-    public TeachingSchedule inputInfo() {
+    public TeachingSchedule inputInfo() throws IOException {
         System.out.println("-------------------------");
 
         System.out.print("Input teacher id: ");
@@ -67,12 +68,14 @@ public class TeachingSchedule {
             }
             break;
         }
-
+        int tt= teacher.getTeachingSchedules().stream()
+                .mapToInt(tc -> tc.getSubject().getTotalLesson()).sum();
+        System.out.println("Total lesson ["+tt+"]");
         if (teacher.getTeachingSchedules().stream()
-                .mapToInt(tc -> tc.getTotalClass()).sum() > 200) {
-            System.out.println("Total lesson cannot over 200");
+                .mapToInt(tc -> tc.getSubject().getTotalLesson()).sum() > 200) {
+            System.out.println("Total lesson cannot over 200 ["+tt+"]");
             return null;
-        };
+        }
 
         this.setTotalClass(choice);
         return this;

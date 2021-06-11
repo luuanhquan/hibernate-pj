@@ -2,6 +2,7 @@ package Creator;
 
 
 import Entity.Teacher;
+import Entity.TeachingSchedule;
 import Impl.TeacherDAOImpl;
 import run.MainRun;
 import utils.CollectionUtil;
@@ -11,22 +12,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherCreator {
-    private static TeacherDAOImpl teacherDAO = new TeacherDAOImpl();
-    private static List<Teacher> listTeacherTemp= new ArrayList<>();
+    private static final TeacherDAOImpl teacherDAO = new TeacherDAOImpl();
+    private static final List<Teacher> listTeacherTemp= new ArrayList<>();
 
     public void createTeacher() {
         listTeacherTemp.clear();
-        while (true) {
+        do {
             try {
-                listTeacherTemp.add(new Teacher().inputInfo());
-                if (!MenuUtil.Continue()) break;
-            } catch (Exception e) {
-                System.out.println("Wrong data input!");
+                CollectionUtil.addIfNotNull(listTeacherTemp, new Teacher().inputInfo());
+            }catch (Exception e){
+                System.out.println("Wrong input");
             }
-        }
+        } while (MenuUtil.Continue());
         if (!CollectionUtil.isEmpty(listTeacherTemp)) {
             teacherDAO.addNew(listTeacherTemp);
-            System.out.println(listTeacherTemp);
             MainRun.teacherList.addAll(listTeacherTemp);
         }
     }

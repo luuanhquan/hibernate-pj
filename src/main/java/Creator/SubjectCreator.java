@@ -2,6 +2,7 @@ package Creator;
 
 
 import Entity.Subject;
+import Entity.Teacher;
 import Impl.SubjectDAOImpl;
 import run.MainRun;
 import utils.CollectionUtil;
@@ -11,22 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectCreator {
-    private static SubjectDAOImpl subjectDAO = new SubjectDAOImpl();
-    private static List<Subject> listSubjectTemp= new ArrayList<>();
+    private static final SubjectDAOImpl subjectDAO = new SubjectDAOImpl();
+    private static final List<Subject> listSubjectTemp= new ArrayList<>();
 
     public void createSubject() {
         listSubjectTemp.clear();
-        while (true) {
+        do {
             try {
-                listSubjectTemp.add(new Subject().inputInfo());
-                if (!MenuUtil.Continue()) break;
-            } catch (Exception e) {
-                System.out.println("Wrong data input!");
+                CollectionUtil.addIfNotNull(listSubjectTemp, new Subject().inputInfo());
+            }catch (Exception e){
+                System.out.println("Wrong input");
             }
-        }
+        } while (MenuUtil.Continue());
+
         if (!CollectionUtil.isEmpty(listSubjectTemp)) {
             subjectDAO.addNew(listSubjectTemp);
-            System.out.println(listSubjectTemp);
             MainRun.subjectList.addAll(listSubjectTemp);
         }
     }
