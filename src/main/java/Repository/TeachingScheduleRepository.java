@@ -1,7 +1,7 @@
-package Impl;
+package Repository;
 
 import DAO.DAO;
-import Entity.Subject;
+import Entity.TeachingSchedule;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import utils.HibernateUtil;
@@ -9,27 +9,27 @@ import utils.HibernateUtil;
 import java.util.List;
 
 
-public class SubjectDAOImpl implements DAO<Subject> {
+public class TeachingScheduleRepository implements DAO<TeachingSchedule> {
 
 
     @Override
-    public List<Subject> getAll() {
+    public List<TeachingSchedule> getAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Subject").list();
+            return session.createQuery("from Teaching_Schedule").list();
         } catch (HibernateException e) {
             e.printStackTrace();
-//            logger.error(e);
         }
         return null;
     }
 
 
     @Override
-    public Subject findById(int id) {
+    public TeachingSchedule findById(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.get(Subject.class, id);
+            return session.get(TeachingSchedule.class, id);
         } catch (HibernateException e) {
             return null;
         }
     }
+
 }

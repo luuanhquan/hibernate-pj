@@ -1,6 +1,5 @@
 package DAO;
 
-import Entity.Subject;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -8,17 +7,17 @@ import utils.HibernateUtil;
 
 import java.util.List;
 
-public interface DAO<T>{
-     List<T> getAll();
+public interface DAO<T> {
+    List<T> getAll();
 
     T findById(int id);
 
-    default boolean addNew(List<T> list){
-        Transaction tx= null;
+    default boolean addNew(List<T> list) {
+        Transaction tx = null;
         Session session;
-        try{
+        try {
             session = HibernateUtil.getSessionFactory().openSession();
-            tx=session.beginTransaction();
+            tx = session.beginTransaction();
             list.forEach(session::save);
             tx.commit();
             return true;
@@ -29,12 +28,12 @@ public interface DAO<T>{
         }
     }
 
-    default boolean update(List<T> list){
+    default boolean update(List<T> list) {
         Transaction tx = null;
         Session session;
-        try{
+        try {
             session = HibernateUtil.getSessionFactory().openSession();
-            tx=session.beginTransaction();
+            tx = session.beginTransaction();
             list.forEach(session::update);
             tx.commit();
             return true;
@@ -45,12 +44,12 @@ public interface DAO<T>{
         }
     }
 
-    default boolean delete(List<T> list){
+    default boolean delete(List<T> list) {
         Transaction tx = null;
         Session session;
-        try{
+        try {
             session = HibernateUtil.getSessionFactory().openSession();
-            tx=session.beginTransaction();
+            tx = session.beginTransaction();
             list.forEach(session::delete);
             tx.commit();
             return true;

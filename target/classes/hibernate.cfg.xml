@@ -26,7 +26,7 @@
         <property name="hibernate.jdbc.batch_versioned_data">true</property>
 
 
-        <!-- Cấu hình sử dụng cache level2 và query cache -->
+<!--        Cấu hình sử dụng cache level2 và query cache-->
 <!--        <property name="cache.use_second_level_cache">true</property>-->
 <!--        <property name="cache.use_query_cache">true</property>-->
 <!--        <property name="cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>-->

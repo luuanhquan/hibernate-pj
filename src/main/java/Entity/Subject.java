@@ -4,11 +4,12 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.IOException;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
-import java.util.Scanner;
 
 @Entity
 @Table(name = "Subject")
@@ -33,7 +34,8 @@ public class Subject {
     @Column(name = "theory_lesson_cost", nullable = false)
     double theoryLessonCost;
 
-    @OneToMany(mappedBy = "subject", fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
     private List<TeachingSchedule> teachingSchedules;
 
     @Override
@@ -43,19 +45,6 @@ public class Subject {
                 "    \t\t" + totalTheoryLesson +
                 "    \t\t" + (totalLesson - totalTheoryLesson) +
                 "    \t" + theoryLessonCost;
-    }
-
-    public Subject inputInfo() throws IOException {
-        System.out.println("-------------------------");
-        System.out.print("Input subject name: ");
-        this.setName(new Scanner(System.in).nextLine());
-        System.out.print("Input total lesson: ");
-        this.setTotalLesson(new Scanner(System.in).nextInt());
-        System.out.print("Input total theory lesson: ");
-        this.setTotalTheoryLesson(new Scanner(System.in).nextInt());
-        System.out.print("Input theo lesson's cost: ");
-        this.setTheoryLessonCost(new Scanner(System.in).nextDouble());
-        return this;
     }
 
     public String getIdString() {

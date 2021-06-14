@@ -1,4 +1,4 @@
-package Impl;
+package Repository;
 
 import DAO.DAO;
 import Entity.Teacher;
@@ -9,7 +9,7 @@ import utils.HibernateUtil;
 import java.util.List;
 
 
-public class TeacherDAOImpl implements DAO<Teacher> {
+public class TeacherRepository implements DAO<Teacher> {
 
     @Override
     public List<Teacher> getAll() {
@@ -21,6 +21,7 @@ public class TeacherDAOImpl implements DAO<Teacher> {
         }
         return null;
     }
+
     @Override
     public Teacher findById(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

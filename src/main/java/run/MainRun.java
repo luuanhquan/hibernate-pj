@@ -1,16 +1,16 @@
 package run;
 
-import Creator.SubjectCreator;
-import Creator.TeacherCreator;
-import Creator.TeachingScheduleCreator;
+import Creator.SubjectService;
+import Creator.TeacherService;
+import Creator.TeachingScheduleService;
 import Creator.TeachingScheduleSortingAndCalculating;
 import DAO.DAO;
 import Entity.Subject;
 import Entity.Teacher;
 import Entity.TeachingSchedule;
-import Impl.SubjectDAOImpl;
-import Impl.TeacherDAOImpl;
-import Impl.TeachingScheduleDAOImpl;
+import Repository.SubjectRepository;
+import Repository.TeacherRepository;
+import Repository.TeachingScheduleRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,19 +21,16 @@ public class MainRun {
 
     //    static Logger logger = Logger.getLogger(MainRun.class);
     static final Scanner scanner = new Scanner(System.in);
-
+    static private final DAO<Subject> subjectDAO = new SubjectRepository();
+    static private final DAO<Teacher> teacherDAO = new TeacherRepository();
+    static private final DAO<TeachingSchedule> teachingScheduleDAO = new TeachingScheduleRepository();
+    static private final SubjectService subjectService = new SubjectService();
+    static private final TeacherService teacherCreator = new TeacherService();
+    static private final TeachingScheduleService teachingScheduleCreator = new TeachingScheduleService();
+    static private final TeachingScheduleSortingAndCalculating teachingScheduleSortingAndCalculating = new TeachingScheduleSortingAndCalculating();
     static public List<Subject> subjectList = new ArrayList<>();
     static public List<Teacher> teacherList = new ArrayList<>();
     static public List<TeachingSchedule> teachingScheduleList = new ArrayList<>();
-
-    static private final DAO<Subject> subjectDAO = new SubjectDAOImpl();
-    static private final DAO<Teacher> teacherDAO = new TeacherDAOImpl();
-    static private final DAO<TeachingSchedule> teachingScheduleDAO = new TeachingScheduleDAOImpl();
-
-    static private final SubjectCreator subjectCreator = new SubjectCreator();
-    static private final TeacherCreator teacherCreator = new TeacherCreator();
-    static private final TeachingScheduleCreator teachingScheduleCreator = new TeachingScheduleCreator();
-    static private final TeachingScheduleSortingAndCalculating teachingScheduleSortingAndCalculating = new TeachingScheduleSortingAndCalculating();
 
     public static void main(String[] args) {
         init();
@@ -64,7 +61,7 @@ public class MainRun {
         System.out.print("Chọn chức năng: ");
         switch (scanner.nextLine()) {
             case "1":
-                subjectCreator.createSubject();
+                subjectService.createSubject();
                 break;
             case "2":
                 printSubject();
