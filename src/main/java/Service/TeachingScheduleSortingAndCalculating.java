@@ -1,32 +1,33 @@
 package Creator;
 
 import Entity.Subject;
+import Entity.Teacher;
 import Entity.TeachingSchedule;
-import run.MainRun;
+import Service.Service;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TeachingScheduleSortingAndCalculating {
-    private static List<TeachingSchedule> teachingScheduleByName;
-    private static List<TeachingSchedule> teachingScheduleByNumber;
+    Service<TeachingSchedule> scheduleService = new Service<TeachingSchedule>() {
+    };
 
-    public void sortByTeacherName() {
-        teachingScheduleByName = new ArrayList<>(MainRun.teachingScheduleList);
-        teachingScheduleByName.stream()
+    public List sortByTeacherName() {
+        return scheduleService.findAll().stream()
                 .sorted((o1, o2) -> o1.getTeacher().getName().compareToIgnoreCase(o2.getTeacher().getName()))
-                .forEach(System.out::println);
+                .collect(Collectors.toList());
     }
 
     public void sortByLessonNumber() {
-        teachingScheduleByNumber = new ArrayList<>(MainRun.teachingScheduleList);
-        teachingScheduleByNumber.stream()
-                .sorted((o1, o2) -> getSoTiet(o1) - getSoTiet(o2))
+        scheduleService.findAll().stream()
+                .sorted(Comparator.comparingInt(this::getSoTiet))
                 .forEach(System.out::println);
     }
 
     public void salaryCaltulate() {
-        MainRun.teacherList.stream().forEach(teacher -> {
+        new Service<Teacher>() {
+        }.findAll().forEach(teacher -> {
             double salary = teacher.getTeachingSchedules()
                     .stream()
                     .mapToDouble(item -> {

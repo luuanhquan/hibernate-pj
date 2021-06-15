@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Arrays;
 
 @Entity(name = "Teaching_Schedule")
 @Data
@@ -41,4 +41,6 @@ public class TeachingSchedule {
                 "\t" + subject.getName() +
                 "\t" + totalClass;
     }
+
+
 }

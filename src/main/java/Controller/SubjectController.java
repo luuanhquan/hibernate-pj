@@ -1,24 +1,43 @@
 package Controller;
 
-import DAO.DAO;
 import Entity.Subject;
-import Repository.SubjectRepository;
+import Service.Service;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("/subjects")
 public class SubjectController {
-    static private final DAO<Subject> subjectDAO = new SubjectRepository();
+    static private final Service<Subject> subjectService= new Service<Subject>() {
+    };
 
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Subject> getListStudent() {
-        return subjectDAO.getAll();
+    public List<Subject> getListSubject() {
+        return subjectService.findAll();
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Subject getSubject(@PathParam("id") int id) {
+        return subjectService.find(Subject.class,id);
+    }
+
+    @POST
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String addNew(Subject subject) {
+        return subjectService.addNew(subject) ? "Thành công" : "Thất bại";
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String delete(@PathParam("id")int id){
+        return subjectService.delete(Subject.class, id)?"Thành công":"Thất bại";
     }
 }

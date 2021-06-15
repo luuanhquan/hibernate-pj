@@ -7,7 +7,6 @@ import lombok.experimental.FieldDefaults;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 @Entity
